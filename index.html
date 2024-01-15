@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Finder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #222;
+            color: #fff;
+            text-align: center;
+            padding: 50px;
+        }
+        #usernameInput {
+            padding: 10px;
+        }
+        #result {
+            margin-top: 20px;
+        }
+        .found-account {
+            color: green;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        #openAccountBtn {
+            display: none;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Social Finder</h1>
+    <label for="usernameInput">Enter Username:</label>
+    <input type="text" id="usernameInput" placeholder="Enter username">
+    <button onclick="findSocialAccounts()">Enter</button>
+    <div id="result"></div>
+    <button id="openAccountBtn" onclick="openFoundAccount()">Open Found Account</button>
+
+    <script>
+        let foundAccounts = [];
+
+        function findSocialAccounts() {
+            const username = document.getElementById('usernameInput').value;
+            const resultElement = document.getElementById('result');
+            const openAccountBtn = document.getElementById('openAccountBtn');
+
+            // Reset result and button visibility
+            resultElement.innerHTML = '';
+            openAccountBtn.style.display = 'none';
+
+            // Hypothetical API calls
+            const twitterFound = checkTwitter(username);
+            const instagramFound = checkInstagram(username);
+            const facebookFound = checkFacebook(username);
+            const tiktokFound = checkTiktok(username);
+
+            // Display results
+            if (tiktokFound) {
+                resultElement.innerHTML += 'Tiktok account found! <span class="found-account" onclick="goToAccount(\'https://tiktok.com/@' + username + '\')">View</span><br>';
+                foundAccounts.push('https://tiktok.com/@' + username);
+            } 
+            if (twitterFound) {
+                resultElement.innerHTML += 'Twitter account found! <span class="found-account" onclick="goToAccount(\'https://twitter.com/' + username + '\')">View</span><br>';
+                foundAccounts.push('https://twitter.com/' + username);
+            }
+
+            if (instagramFound) {
+                resultElement.innerHTML += 'Instagram account found! <span class="found-account" onclick="goToAccount(\'https://www.instagram.com/' + username + '\')">View</span><br>';
+                foundAccounts.push('https://www.instagram.com/' + username);
+            }
+
+            if (facebookFound) {
+                resultElement.innerHTML += 'Facebook account found! <span class="found-account" onclick="goToAccount(\'https://www.facebook.com/' + username + '\')">View</span><br>';
+                foundAccounts.push('https://www.facebook.com/' + username);
+            }
+
+            if (foundAccounts.length > 0) {
+                openAccountBtn.style.display = 'inline-block';
+            }
+        }
+
+        function checkTiktok(username) {
+            return Math.random() < 0.5;
+        }
+
+        function checkTwitter(username) {
+            return Math.random() < 0.5;
+        }
+
+        function checkInstagram(username) {
+            return Math.random() < 0.5;
+        }
+
+        function checkFacebook(username) {
+            return Math.random() < 0.5;
+        }
+
+        function goToAccount(link) {
+            window.open(link, '_blank');
+        }
+
+        function openFoundAccount() {
+            if (foundAccounts.length > 0) {
+                const randomIndex = Math.floor(Math.random() * foundAccounts.length);
+                const selectedAccount = foundAccounts[randomIndex];
+                window.open(selectedAccount, '_blank');
+            }
+        }
+    </script>
+</body>
+</html>
